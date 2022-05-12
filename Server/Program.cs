@@ -1,18 +1,13 @@
-using BlazorWASMEFCore.Server.Interfaces;
-using BlazorWASMEFCore.Server.Models;
-using BlazorWASMEFCore.Server.Services;
+using BlazorWASMEFCore.Server.DAL;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddDbContext<DatabaseContext>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-    );
-
-builder.Services.AddTransient<IUser, UserManager>();
+builder.Services.AddDbContext<SchoolContext>();
+builder.Services.AddScoped<CourseRepository>();
+builder.Services.AddScoped<StudentRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
